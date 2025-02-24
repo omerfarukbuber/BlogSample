@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface UserService {
     ResponseEntity<List<UserResponse>> getAll();
+    ResponseEntity<List<String>> getAllFullNames();
     ResponseEntity<UserResponse> getById(long id);
     ResponseEntity<UserResponse> getByEmail(String email);
     ResponseEntity<UserResponse> save(CreateUserRequest request);
