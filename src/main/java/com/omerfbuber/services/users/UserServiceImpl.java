@@ -9,6 +9,7 @@ import com.omerfbuber.repositories.users.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,6 +26,12 @@ public class UserServiceImpl implements UserService {
         var result = userRepository.findAll().stream()
                 .map(user -> UserResponse.of(user)).toList();
 
+        return ResponseEntity.ok(result);
+    }
+
+    @Override
+    public ResponseEntity<List<String>> getAllFullNames() {
+        var result = userRepository.getFullNameList().orElse(Collections.emptyList());
         return ResponseEntity.ok(result);
     }
 
@@ -92,8 +99,10 @@ public class UserServiceImpl implements UserService {
 
         entity.setPassword(request.newPassword());
 
-        userRepository.save(entity);
-        return ResponseEntity.noContent().build();
+        var result = userRepository.updateUserPassword(request.email(), request.newPassword());
+        return result > 0
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.internalServerError().build();
     }
 
     @Override

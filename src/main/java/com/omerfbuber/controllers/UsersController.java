@@ -30,6 +30,11 @@ public class UsersController {
         return userService.getById(id);
     }
 
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getNames() {
+        return userService.getAllFullNames();
+    }
+
     @PostMapping
     public ResponseEntity<UserResponse> create(@RequestBody CreateUserRequest request) {
         return userService.save(request);
