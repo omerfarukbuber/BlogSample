@@ -15,7 +15,7 @@ public record CreateUserRequest (
     public User toUser()
     {
         return new User(
-                0L,
+                null,
                 email,
                 password,
                 firstName,
