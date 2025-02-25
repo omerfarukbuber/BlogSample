@@ -4,6 +4,7 @@ import com.omerfbuber.dtos.users.request.ChangePasswordRequest;
 import com.omerfbuber.dtos.users.request.CreateUserRequest;
 import com.omerfbuber.dtos.users.request.UpdateUserRequest;
 import com.omerfbuber.dtos.users.response.UserResponse;
+import com.omerfbuber.entities.Role;
 import com.omerfbuber.entities.User;
 import com.omerfbuber.repositories.users.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
             return ResponseEntity.badRequest().build();
 
         User user = request.toUser();
+        user.setRole(Role.getUserRole());
 
         var entity = userRepository.save(user);
 
