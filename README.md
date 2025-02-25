@@ -1,65 +1,73 @@
 # BasicRestApi
 
-## Overview
-BasicRestApi is a RESTful API built using **Java Spring Boot**. It utilizes **PostgreSQL** as the database and follows a structured architecture with **Repository** and **Service** layers. The project implements **Result Pattern** and **ProblemDetails** for handling responses and errors effectively. **ValidationExceptionHandling** is used for request validation, leveraging Spring's built-in validation framework. Validation messages are stored in `messages.properties` and `messages_en.properties`.
+BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the database. The project follows a layered architecture with Repository and Service layers. It utilizes the Result pattern, ProblemDetail for error handling, and global exception handling. Validation is implemented using Spring's validation framework, with localized validation messages stored in `messages.properties` and `messages_en.properties`. The project also includes both unit and integration tests.
 
 ## Features
-- **Spring Boot** framework
-- **PostgreSQL** database integration
-- **Repository-Service Pattern**
-- **Result Pattern** for API responses
-- **ProblemDetails** for structured error handling
-- **Spring Validation Framework** for request validation
-- **Multilingual support for validation messages**
-- **RESTful API design** following OpenAPI 3.1.0 specification
 
-## API Endpoints
-### `Users API`
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| `GET`  | `/api/users` | Retrieve all users |
-| `POST` | `/api/users` | Create a new user |
-| `PUT`  | `/api/users` | Update user details |
-| `GET`  | `/api/users/{id}` | Get a user by ID |
-| `DELETE` | `/api/users/{id}` | Delete a user by ID |
-| `PUT` | `/api/users/change_password` | Change user password |
-| `GET`  | `/api/users/names` | Get a list of user names |
+- Java Spring Boot REST API
+- PostgreSQL database
+- Repository and Service layers
+- Result pattern implementation
+- ProblemDetail-based global exception handling
+- Validation using Spring Validation
+- Localized validation messages
+- Unit and integration tests
+- OpenAPI documentation
 
-## Error Handling
-The project uses **ProblemDetails** for error responses. Example error response:
-```json
-{
-  "type": "https://example.com/validation-error",
-  "title": "Validation Error",
-  "status": 400,
-  "errors": [
-    { "code": "email", "description": "Email is required" }
-  ]
-}
-```
+## Technologies Used
 
-## Installation & Setup
-### Prerequisites
-- Java 17+
-- PostgreSQL
-- Maven
+- **Spring Boot** - Framework for building the REST API
+- **Spring Data JPA** - Database interaction
+- **PostgreSQL** - Relational database
+- **Spring Validation** - Request validation
+- **ProblemDetail** - Error handling
+- **JUnit, Mockito** - Unit and integration testing
+- **OpenAPI** - API documentation
 
-### Steps
+## Installation
+
 1. Clone the repository:
    ```sh
    git clone https://github.com/omerfarukbuber/BasicRestApi.git
+   cd BasicRestApi
    ```
-2. Configure **PostgreSQL** connection in `application.properties`:
+
+2. Configure the database in `application.properties`:
    ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/your_database
+   spring.datasource.url=jdbc:postgresql://localhost:5432/basic_rest_api
    spring.datasource.username=your_username
    spring.datasource.password=your_password
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
    ```
-3. Build and run the project:
+
+3. Build and run the application:
    ```sh
+   mvn clean install
    mvn spring-boot:run
    ```
 
+## API Endpoints
+
+### Users
+| Method | Endpoint | Description |
+|--------|---------|-------------|
+| `GET` | `/api/users` | Get all users |
+| `GET` | `/api/users/{id}` | Get user by ID |
+| `GET` | `/api/users/names` | Get full names of all users |
+| `POST` | `/api/users` | Create a new user |
+| `PUT` | `/api/users` | Update an existing user |
+| `PUT` | `/api/users/change_password` | Change user password |
+| `DELETE` | `/api/users/{id}` | Delete user by ID |
+
+## Running Tests
+
+To run unit and integration tests:
+```sh
+mvn test
+```
+
 ## License
-This project is licensed under the MIT License.
+
+This project is open-source and available under the [MIT License](LICENSE).
 
