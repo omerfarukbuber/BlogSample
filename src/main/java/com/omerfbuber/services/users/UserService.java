@@ -4,17 +4,18 @@ import com.omerfbuber.dtos.users.request.ChangePasswordRequest;
 import com.omerfbuber.dtos.users.request.CreateUserRequest;
 import com.omerfbuber.dtos.users.request.UpdateUserRequest;
 import com.omerfbuber.dtos.users.response.UserResponse;
+import com.omerfbuber.results.Result;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface UserService {
-    ResponseEntity<List<UserResponse>> getAll();
-    ResponseEntity<List<String>> getAllFullNames();
-    ResponseEntity<UserResponse> getById(long id);
-    ResponseEntity<UserResponse> getByEmail(String email);
-    ResponseEntity<UserResponse> save(CreateUserRequest request);
-    ResponseEntity<Void> update(UpdateUserRequest request);
-    ResponseEntity<Void> changePassword(ChangePasswordRequest request);
-    ResponseEntity<Void> delete(long id);
+    Result<List<UserResponse>> getAll();
+    Result<List<String>> getAllFullNames();
+    Result<UserResponse> getById(long id);
+    Result<UserResponse> getByEmail(String email);
+    Result<UserResponse> save(CreateUserRequest request);
+    Result<Void> update(UpdateUserRequest request);
+    Result<Void> changePassword(ChangePasswordRequest request);
+    Result<Void> delete(long id);
 }
