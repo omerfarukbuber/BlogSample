@@ -15,7 +15,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +31,15 @@ public class UserServiceUnitTest {
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private CacheManager cacheManager;
 
     private UserService userService;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        userService = new UserServiceImpl(userRepository);
+        userService = new UserServiceImpl(userRepository, cacheManager);
     }
 
     @Test
@@ -178,6 +183,7 @@ public class UserServiceUnitTest {
         User savedUser = new User(1L, "test@example.com", "password123", "John", "Doe", new Date());
         when(userRepository.existsByEmail(request.email())).thenReturn(false);
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
+        when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
 
         // Act
         Result<UserResponse> result = userService.save(request);
@@ -215,6 +221,7 @@ public class UserServiceUnitTest {
         User existingUser = new User(userId, "oldEmail@example.com", "oldPassword", "Old", "Name", new Date());
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenReturn(existingUser);
+        when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
 
         // Act
         Result<Void> result = userService.update(request);
@@ -330,7 +337,7 @@ public class UserServiceUnitTest {
     void delete_ShouldReturnFailure_WhenUserNotFound() {
         // Arrange
         long id = 1L;
-        when(userRepository.existsById(id)).thenReturn(false); // Kullanıcı yok
+        when(userRepository.existsById(id)).thenReturn(false);
 
         // Act
         Result<Void> result = userService.delete(id);
@@ -349,6 +356,7 @@ public class UserServiceUnitTest {
         long id = 1L;
         when(userRepository.existsById(id)).thenReturn(true);
         doNothing().when(userRepository).deleteById(id);
+        when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
 
         // Act
         Result<Void> result = userService.delete(id);
