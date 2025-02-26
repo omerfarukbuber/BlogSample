@@ -2,6 +2,7 @@ package com.omerfbuber.extensions;
 
 import com.omerfbuber.results.Error;
 import com.omerfbuber.results.Result;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
+@Order(1)
 public class ValidationExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
