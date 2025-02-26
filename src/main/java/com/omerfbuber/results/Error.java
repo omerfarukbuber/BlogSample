@@ -2,7 +2,9 @@ package com.omerfbuber.results;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public record Error(String code, String description, @JsonIgnore ErrorType type) {
+import java.io.Serializable;
+
+public record Error(String code, String description, @JsonIgnore ErrorType type) implements Serializable {
 
     public static Error NONE = new Error("", "", ErrorType.FAILURE);
     public static Error NULL_VALUE = new Error(

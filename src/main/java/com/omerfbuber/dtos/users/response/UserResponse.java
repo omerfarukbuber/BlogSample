@@ -2,6 +2,7 @@ package com.omerfbuber.dtos.users.response;
 
 import com.omerfbuber.entities.User;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ public record UserResponse(
         String lastName,
         String email,
         Date birthDate
-) {
+) implements Serializable {
     
     public static UserResponse of(User user) {
         return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getBirthDate());
