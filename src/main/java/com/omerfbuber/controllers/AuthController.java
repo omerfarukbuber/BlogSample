@@ -1,6 +1,7 @@
 package com.omerfbuber.controllers;
 
 import com.omerfbuber.dtos.auth.request.LoginRequest;
+import com.omerfbuber.dtos.auth.request.RefreshTokenRequest;
 import com.omerfbuber.dtos.auth.response.TokenResponse;
 import com.omerfbuber.extensions.ResponseEntityExtension;
 import com.omerfbuber.results.Result;
@@ -22,7 +23,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest loginRequest) {
-        Result<TokenResponse> result = authenticationService.login(loginRequest.email(), loginRequest.password());
-        return ResponseEntityExtension.okOrProblem(result);
+        return ResponseEntityExtension.okOrProblem(authenticationService.login(loginRequest));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<TokenResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        return ResponseEntityExtension.okOrProblem(authenticationService.refreshToken(refreshTokenRequest));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout() {
+        return ResponseEntityExtension.okOrProblem(authenticationService.logout());
     }
 }
