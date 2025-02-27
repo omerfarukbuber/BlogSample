@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Component
@@ -18,6 +19,8 @@ public class TokenProviderImpl implements TokenProvider {
 
     @Value("${security.jwt.expiration}")
     private long expirationInMinutes;
+    @Value("${security.jwt.refreshtoken.expiration}")
+    private long refreshTokenExpirationInDays;
 
     public TokenProviderImpl(@Value("${security.jwt.secret}") String secret) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
@@ -35,7 +38,10 @@ public class TokenProviderImpl implements TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return new TokenResponse(token, expirationDate);
+        var refreshToken = UUID.randomUUID().toString();
+        var refreshTokenExpiration = new Date(System.currentTimeMillis() + refreshTokenExpirationInDays * 24 * 60 * 60 * 1000);
+
+        return new TokenResponse(token, refreshToken, expirationDate, refreshTokenExpiration);
     }
 
     @Override
