@@ -8,6 +8,7 @@ import com.omerfbuber.dtos.users.response.UserResponse;
 import com.omerfbuber.entities.User;
 import com.omerfbuber.repositories.users.UserRepository;
 import com.omerfbuber.results.Result;
+import com.omerfbuber.services.shared.PasswordHasher;
 import com.omerfbuber.services.users.UserService;
 import com.omerfbuber.services.users.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -33,13 +33,15 @@ public class UserServiceUnitTest {
     private UserRepository userRepository;
     @Mock
     private CacheManager cacheManager;
+    @Mock
+    private PasswordHasher passwordHasher;
 
     private UserService userService;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        userService = new UserServiceImpl(userRepository, cacheManager);
+        userService = new UserServiceImpl(userRepository, cacheManager, passwordHasher);
     }
 
     @Test
