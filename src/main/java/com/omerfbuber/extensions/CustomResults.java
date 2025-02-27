@@ -25,14 +25,14 @@ public class CustomResults {
 
     private static String getTitle(com.omerfbuber.results.Error error){
         return switch (error.type()){
-            case VALIDATION, CONFLICT, FAILURE, PROBLEM, NOT_FOUND -> error.code();
+            case VALIDATION, CONFLICT, FAILURE, PROBLEM, NOT_FOUND, FORBIDDEN, UNAUTHORIZED -> error.code();
             default -> "Server.Failure";
         };
     }
 
     private static String getDetail(com.omerfbuber.results.Error error){
         return switch (error.type()){
-            case VALIDATION, CONFLICT, FAILURE, PROBLEM, NOT_FOUND -> error.description();
+            case VALIDATION, CONFLICT, FAILURE, PROBLEM, NOT_FOUND, FORBIDDEN, UNAUTHORIZED -> error.description();
             default -> "An unexpected error occurred.";
         };
     }
@@ -42,6 +42,8 @@ public class CustomResults {
             case VALIDATION, PROBLEM, FAILURE -> "https://tools.ietf.org/html/rfc7231#section-6.5.1";
             case NOT_FOUND -> "https://tools.ietf.org/html/rfc7231#section-6.5.4";
             case CONFLICT -> "https://tools.ietf.org/html/rfc7231#section-6.5.8";
+            case FORBIDDEN -> "https://tools.ietf.org/html/rfc7231#section-6.5.3";
+            case UNAUTHORIZED -> "https://tools.ietf.org/html/rfc7235#section-3.1";
             default -> "https://tools.ietf.org/html/rfc7231#section-6.6.1";
         };
         return URI.create(uri);
@@ -52,6 +54,8 @@ public class CustomResults {
             case VALIDATION, PROBLEM, FAILURE -> HttpStatus.BAD_REQUEST;
             case NOT_FOUND -> HttpStatus.NOT_FOUND;
             case CONFLICT -> HttpStatus.CONFLICT;
+            case FORBIDDEN -> HttpStatus.FORBIDDEN;
+            case UNAUTHORIZED -> HttpStatus.UNAUTHORIZED;
             default -> HttpStatus.INTERNAL_SERVER_ERROR;
         };
     }

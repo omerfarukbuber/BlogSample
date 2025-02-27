@@ -29,4 +29,12 @@ public record Error(String code, String description, @JsonIgnore ErrorType type)
     public static Error validation(String fieldName, String message){
         return new Error(fieldName, message, ErrorType.VALIDATION);
     }
+
+    public static Error unauthorized(String code, String description) {
+        return new Error(code, description, ErrorType.UNAUTHORIZED);
+    }
+
+    public static Error forbidden(String code, String description) {
+        return new Error(code, description, ErrorType.FORBIDDEN);
+    }
 }
