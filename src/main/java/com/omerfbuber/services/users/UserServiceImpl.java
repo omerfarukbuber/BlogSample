@@ -9,6 +9,7 @@ import com.omerfbuber.entities.User;
 import com.omerfbuber.repositories.users.UserRepository;
 import com.omerfbuber.results.Error;
 import com.omerfbuber.results.Result;
+import com.omerfbuber.services.shared.PasswordHasher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -25,10 +26,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final CacheManager cacheManager;
+    private final PasswordHasher passwordHasher;
 
-    public UserServiceImpl(UserRepository userRepository, CacheManager cacheManager) {
+    public UserServiceImpl(UserRepository userRepository, CacheManager cacheManager, PasswordHasher passwordHasher) {
         this.userRepository = userRepository;
         this.cacheManager = cacheManager;
+        this.passwordHasher = passwordHasher;
     }
 
     @Cacheable(value = "users", key = "'all'")
@@ -95,6 +98,7 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = request.toUser();
+        user.setPassword(passwordHasher.hash(request.password()));
         user.setRole(Role.getUserRole());
         var entity = userRepository.save(user);
         log.info("User with email: {} created successfully", request.email());
@@ -134,12 +138,12 @@ public class UserServiceImpl implements UserService {
             return Result.failure(Error.notFound("User.NotFound", "User with email " + request.email() + " not found"));
         }
 
-        if (!entity.getPassword().equals(request.password())) {
+        if (!passwordHasher.verify(request.password(), entity.getPassword())) {
             log.warn("Incorrect password attempt for email: {}", request.email());
             return Result.failure(Error.problem("User.WrongPassword", "Password is incorrect"));
         }
 
-        entity.setPassword(request.newPassword());
+        entity.setPassword(passwordHasher.hash(request.newPassword()));
         var result = userRepository.updateUserPassword(request.email(), request.newPassword());
 
         if (result > 0) {
