@@ -2,9 +2,10 @@ package com.omerfbuber.results;
 
 import lombok.Getter;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Result<TValue>{
+public class Result<TValue> implements Serializable {
 
     private final boolean isSuccess;
     @Getter

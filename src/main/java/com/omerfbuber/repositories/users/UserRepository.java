@@ -23,4 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "UPDATE User u SET u.password = :password WHERE u.email = :email",
             nativeQuery = false)
     int updateUserPassword(@Param("email") String email, @Param("password") String password);
+
+    @Query(value = "SELECT u FROM User u JOIN FETCH u.role r JOIN FETCH r.permissions p WHERE u.email = :email")
+    Optional<User> findByEmailWithRoleAndPermissions(@Param("email") String email);
+
 }

@@ -1,0 +1,323 @@
+2025-02-26 17:05:46 - [INFO] Starting UserServiceIntegrationTest using Java 22 with PID 26000 (started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:05:46 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:05:46 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:05:47 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:05:47 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 17:05:47 - [INFO] Finished Spring Data repository scanning in 80 ms. Found 3 JPA repository interfaces.
+2025-02-26 17:05:47 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:05:47 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 17:05:47 - [INFO] Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2025-02-26 17:05:48 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:05:48 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 17:05:48 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:05:48 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 17:05:48 - [INFO] HikariPool-1 - Starting...
+2025-02-26 17:05:48 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@ff21443
+2025-02-26 17:05:48 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 17:05:48 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:05:48 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:05:49 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:05:49 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:05:50 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 17:05:51 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:05:51 - [INFO] Started UserServiceIntegrationTest in 5.768 seconds (process running for 6.889)
+2025-02-26 17:05:53 - [INFO] Starting UserServiceUnitTest using Java 22 with PID 26000 (started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:05:53 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:05:53 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:05:53 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:05:53 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 17:05:53 - [INFO] Finished Spring Data repository scanning in 5 ms. Found 3 JPA repository interfaces.
+2025-02-26 17:05:53 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:05:53 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 17:05:53 - [INFO] Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2025-02-26 17:05:53 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:05:53 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:05:53 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 17:05:53 - [INFO] HikariPool-2 - Starting...
+2025-02-26 17:05:53 - [INFO] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@c005d62
+2025-02-26 17:05:53 - [INFO] HikariPool-2 - Start completed.
+2025-02-26 17:05:53 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:05:53 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:05:53 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:05:53 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:05:53 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:05:53 - [INFO] Started UserServiceUnitTest in 0.741 seconds (process running for 8.888)
+2025-02-26 17:05:54 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:05:54 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 17:05:54 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 17:05:54 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:05:54 - [INFO] HikariPool-2 - Shutdown initiated...
+2025-02-26 17:05:54 - [INFO] HikariPool-2 - Shutdown completed.
+2025-02-26 17:06:02 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 12916 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:06:02 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:06:02 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:06:02 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:06:02 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 17:06:02 - [INFO] Finished Spring Data repository scanning in 101 ms. Found 3 JPA repository interfaces.
+2025-02-26 17:06:02 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:06:02 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 17:06:02 - [INFO] Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2025-02-26 17:06:03 - [INFO] Tomcat initialized with port 8080 (http)
+2025-02-26 17:06:03 - [INFO] Starting service [Tomcat]
+2025-02-26 17:06:03 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 17:06:03 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 17:06:03 - [INFO] Root WebApplicationContext: initialization completed in 984 ms
+2025-02-26 17:06:03 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:06:03 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 17:06:03 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:06:03 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 17:06:03 - [INFO] HikariPool-1 - Starting...
+2025-02-26 17:06:03 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@29c25bbc
+2025-02-26 17:06:03 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 17:06:03 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:06:03 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:06:04 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:06:04 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:06:04 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 17:06:05 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:06:05 - [INFO] Tomcat started on port 8080 (http) with context path '/'
+2025-02-26 17:06:05 - [INFO] Started BasicRestApiApplication in 3.711 seconds (process running for 4.171)
+2025-02-26 17:06:15 - [INFO] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-26 17:06:15 - [INFO] Initializing Servlet 'dispatcherServlet'
+2025-02-26 17:06:15 - [INFO] Completed initialization in 1 ms
+2025-02-26 17:06:15 - [INFO] Request received GET /api/users
+2025-02-26 17:06:16 - [INFO] Response sent 200 /api/users
+2025-02-26 17:07:50 - [INFO] Commencing graceful shutdown. Waiting for active requests to complete
+2025-02-26 17:07:51 - [INFO] Graceful shutdown complete
+2025-02-26 17:07:51 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:07:51 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 17:07:51 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 17:23:58 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 6740 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:23:58 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:23:58 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:23:58 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:23:58 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 17:23:58 - [INFO] Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
+2025-02-26 17:23:58 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:23:58 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 17:23:58 - [INFO] Finished Spring Data repository scanning in 5 ms. Found 0 Redis repository interfaces.
+2025-02-26 17:23:59 - [INFO] Tomcat initialized with port 8080 (http)
+2025-02-26 17:23:59 - [INFO] Starting service [Tomcat]
+2025-02-26 17:23:59 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 17:23:59 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 17:23:59 - [INFO] Root WebApplicationContext: initialization completed in 1064 ms
+2025-02-26 17:23:59 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:23:59 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 17:23:59 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:23:59 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 17:23:59 - [INFO] HikariPool-1 - Starting...
+2025-02-26 17:23:59 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e948f1c
+2025-02-26 17:23:59 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 17:23:59 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:23:59 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:24:00 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:24:00 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:24:00 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 17:24:01 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:24:01 - [INFO] Tomcat started on port 8080 (http) with context path '/'
+2025-02-26 17:24:01 - [INFO] Started BasicRestApiApplication in 3.942 seconds (process running for 4.425)
+2025-02-26 17:24:07 - [INFO] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-26 17:24:07 - [INFO] Initializing Servlet 'dispatcherServlet'
+2025-02-26 17:24:07 - [INFO] Completed initialization in 0 ms
+2025-02-26 17:24:07 - [INFO] Request received GET /api/users
+2025-02-26 17:24:07 - [INFO] Response sent 200 /api/users
+2025-02-26 17:25:07 - [INFO] Commencing graceful shutdown. Waiting for active requests to complete
+2025-02-26 17:25:07 - [INFO] Graceful shutdown complete
+2025-02-26 17:25:07 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:25:07 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 17:25:07 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 17:25:24 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 23112 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:25:24 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:25:24 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:25:25 - [INFO] Starting service [Tomcat]
+2025-02-26 17:25:25 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 17:25:25 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 17:25:25 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:25:25 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 17:25:25 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:25:26 - [INFO] HikariPool-1 - Starting...
+2025-02-26 17:25:26 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d3b6585
+2025-02-26 17:25:26 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 17:25:26 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:25:26 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:25:26 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:25:27 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:25:28 - [INFO] Started BasicRestApiApplication in 3.866 seconds (process running for 4.348)
+2025-02-26 17:25:48 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 17:25:48 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 17:29:57 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 11784 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 17:29:57 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 17:29:57 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 17:29:58 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:29:58 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 17:29:58 - [INFO] Finished Spring Data repository scanning in 75 ms. Found 3 JPA repository interfaces.
+2025-02-26 17:29:58 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 17:29:58 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 17:29:58 - [INFO] Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+2025-02-26 17:29:58 - [INFO] Tomcat initialized with port 8080 (http)
+2025-02-26 17:29:58 - [INFO] Starting service [Tomcat]
+2025-02-26 17:29:58 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 17:29:58 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 17:29:58 - [INFO] Root WebApplicationContext: initialization completed in 959 ms
+2025-02-26 17:29:58 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 17:29:58 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 17:29:58 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 17:29:59 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 17:29:59 - [INFO] HikariPool-1 - Starting...
+2025-02-26 17:29:59 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d3b6585
+2025-02-26 17:29:59 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 17:29:59 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 17:29:59 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 17:29:59 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 17:29:59 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:30:00 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 17:30:00 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 17:30:00 - [INFO] Tomcat started on port 8080 (http) with context path '/'
+2025-02-26 17:30:00 - [INFO] Started BasicRestApiApplication in 3.609 seconds (process running for 4.079)
+2025-02-26 17:30:09 - [INFO] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-26 17:30:09 - [INFO] Initializing Servlet 'dispatcherServlet'
+2025-02-26 17:30:09 - [INFO] Completed initialization in 2 ms
+2025-02-26 17:30:09 - [INFO] Request received POST /api/users
+2025-02-26 17:30:09 - [WARN] ProblemDetail[type='https://tools.ietf.org/html/rfc7231#section-6.5.1', title='Validation.General', status=400, detail='One or more validation errors occurred', instance='null', properties='{errors=[Error[code=firstName, description=Ad en az 2 ve en fazla 50 karakter olmalıdır, type=VALIDATION], Error[code=email, description=E-posta alanı boş olamaz, type=VALIDATION]]}']
+2025-02-26 17:30:09 - [INFO] Response sent 400 /api/users
+2025-02-26 17:31:18 - [INFO] Commencing graceful shutdown. Waiting for active requests to complete
+2025-02-26 17:31:18 - [INFO] Graceful shutdown complete
+2025-02-26 17:31:18 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 17:31:18 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 17:31:18 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 18:00:26 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 23940 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 18:00:26 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 18:00:26 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 18:00:26 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 18:00:26 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 18:00:26 - [INFO] Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
+2025-02-26 18:00:27 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 18:00:27 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 18:00:27 - [INFO] Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2025-02-26 18:00:27 - [INFO] Tomcat initialized with port 8080 (http)
+2025-02-26 18:00:27 - [INFO] Starting service [Tomcat]
+2025-02-26 18:00:27 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 18:00:27 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 18:00:27 - [INFO] Root WebApplicationContext: initialization completed in 830 ms
+2025-02-26 18:00:27 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 18:00:27 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 18:00:27 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 18:00:27 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 18:00:27 - [INFO] HikariPool-1 - Starting...
+2025-02-26 18:00:27 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@698ac187
+2025-02-26 18:00:27 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 18:00:27 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 18:00:27 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 18:00:28 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 18:00:28 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 18:00:28 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 18:00:29 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 18:00:29 - [INFO] Tomcat started on port 8080 (http) with context path '/'
+2025-02-26 18:00:29 - [INFO] Started BasicRestApiApplication in 3.231 seconds (process running for 3.666)
+2025-02-26 18:00:38 - [INFO] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-26 18:00:38 - [INFO] Initializing Servlet 'dispatcherServlet'
+2025-02-26 18:00:38 - [INFO] Completed initialization in 0 ms
+2025-02-26 18:00:38 - [INFO] Request received POST /api/users
+2025-02-26 18:00:38 - [WARN] Validation failed: Field: email - Message: E-posta alanı boş olamaz; Field: firstName - Message: Ad en az 2 ve en fazla 50 karakter olmalıdır
+2025-02-26 18:00:38 - [INFO] Response sent 400 /api/users
+2025-02-26 18:00:57 - [INFO] Commencing graceful shutdown. Waiting for active requests to complete
+2025-02-26 18:00:57 - [INFO] Graceful shutdown complete
+2025-02-26 18:00:57 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 18:00:57 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 18:00:57 - [INFO] HikariPool-1 - Shutdown completed.
+2025-02-26 18:04:33 - [INFO] Starting BasicRestApiApplication using Java 22 with PID 24628 (C:\Java Projects\BasicRestApi\target\classes started by omerf in C:\Java Projects\BasicRestApi)
+2025-02-26 18:04:33 - [DEBUG] Running with Spring Boot v3.4.3, Spring v6.2.3
+2025-02-26 18:04:33 - [INFO] No active profile set, falling back to 1 default profile: "default"
+2025-02-26 18:04:33 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 18:04:33 - [INFO] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-26 18:04:33 - [INFO] Finished Spring Data repository scanning in 67 ms. Found 3 JPA repository interfaces.
+2025-02-26 18:04:33 - [INFO] Multiple Spring Data modules found, entering strict repository configuration mode
+2025-02-26 18:04:33 - [INFO] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-02-26 18:04:33 - [INFO] Finished Spring Data repository scanning in 4 ms. Found 0 Redis repository interfaces.
+2025-02-26 18:04:33 - [INFO] Tomcat initialized with port 8080 (http)
+2025-02-26 18:04:33 - [INFO] Starting service [Tomcat]
+2025-02-26 18:04:33 - [INFO] Starting Servlet engine: [Apache Tomcat/10.1.36]
+2025-02-26 18:04:34 - [INFO] Initializing Spring embedded WebApplicationContext
+2025-02-26 18:04:34 - [INFO] Root WebApplicationContext: initialization completed in 851 ms
+2025-02-26 18:04:34 - [INFO] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-26 18:04:34 - [INFO] HHH000412: Hibernate ORM core version 6.6.8.Final
+2025-02-26 18:04:34 - [INFO] HHH000026: Second-level cache disabled
+2025-02-26 18:04:34 - [INFO] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-26 18:04:34 - [INFO] HikariPool-1 - Starting...
+2025-02-26 18:04:34 - [INFO] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5d3b6585
+2025-02-26 18:04:34 - [INFO] HikariPool-1 - Start completed.
+2025-02-26 18:04:34 - [WARN] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-26 18:04:34 - [INFO] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 16.3
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-26 18:04:35 - [INFO] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-26 18:04:35 - [INFO] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 18:04:35 - [INFO] Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-02-26 18:04:35 - [WARN] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-26 18:04:36 - [INFO] Tomcat started on port 8080 (http) with context path '/'
+2025-02-26 18:04:36 - [INFO] Started BasicRestApiApplication in 3.241 seconds (process running for 3.607)
+2025-02-26 18:04:38 - [INFO] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-02-26 18:04:38 - [INFO] Initializing Servlet 'dispatcherServlet'
+2025-02-26 18:04:38 - [INFO] Completed initialization in 1 ms
+2025-02-26 18:04:38 - [INFO] Request received | Method: POST | Path: /api/users | Client IP: 0:0:0:0:0:0:0:1 | User-Agent: PostmanRuntime/7.43.0
+2025-02-26 18:04:39 - [WARN] Validation failed: Field: firstName - Message: Ad en az 2 ve en fazla 50 karakter olmalıdır; Field: email - Message: E-posta alanı boş olamaz
+2025-02-26 18:04:39 - [INFO] Response sent | Status: 400 | Path: /api/users | Duration: 121ms
+2025-02-26 18:05:14 - [INFO] Commencing graceful shutdown. Waiting for active requests to complete
+2025-02-26 18:05:14 - [INFO] Graceful shutdown complete
+2025-02-26 18:05:14 - [INFO] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-26 18:05:14 - [INFO] HikariPool-1 - Shutdown initiated...
+2025-02-26 18:05:14 - [INFO] HikariPool-1 - Shutdown completed.
