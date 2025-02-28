@@ -5,9 +5,11 @@ import com.omerfbuber.dtos.users.request.CreateUserRequest;
 import com.omerfbuber.dtos.users.request.UpdateUserRequest;
 import com.omerfbuber.dtos.users.response.UserResponse;
 import com.omerfbuber.extensions.ResponseEntityExtension;
+import com.omerfbuber.services.shared.CustomUserDetails;
 import com.omerfbuber.services.users.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,8 +55,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id) {
-        return ResponseEntityExtension.noContentOrProblem(userService.delete(id));
+    public ResponseEntity<Void> delete(@PathVariable long id, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return ResponseEntityExtension.noContentOrProblem(userService.delete(id, customUserDetails));
     }
 
 
