@@ -8,6 +8,8 @@ import com.omerfbuber.dtos.users.response.UserResponse;
 import com.omerfbuber.entities.User;
 import com.omerfbuber.repositories.users.UserRepository;
 import com.omerfbuber.results.Result;
+import com.omerfbuber.services.shared.CustomUserDetails;
+import com.omerfbuber.services.shared.CustomUserDetailsService;
 import com.omerfbuber.services.shared.PasswordHasher;
 import com.omerfbuber.services.users.UserService;
 import com.omerfbuber.services.users.UserServiceImpl;
@@ -35,13 +37,15 @@ public class UserServiceUnitTest {
     private CacheManager cacheManager;
     @Mock
     private PasswordHasher passwordHasher;
+    @Mock
+    private CustomUserDetailsService customUserDetailsService;
 
     private UserService userService;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-        userService = new UserServiceImpl(userRepository, cacheManager, passwordHasher);
+        userService = new UserServiceImpl(userRepository, cacheManager, passwordHasher, customUserDetailsService);
     }
 
     @Test
@@ -265,6 +269,7 @@ public class UserServiceUnitTest {
         ChangePasswordRequest request = new ChangePasswordRequest(email, "wrongPassword", "newPassword", "newPassword");
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+        when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(false);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -284,6 +289,7 @@ public class UserServiceUnitTest {
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", "newPassword", "differentPassword");
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
+        when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -304,6 +310,7 @@ public class UserServiceUnitTest {
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.updateUserPassword(email, newPassword)).thenReturn(1);
+        when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -323,6 +330,7 @@ public class UserServiceUnitTest {
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.updateUserPassword(email, newPassword)).thenReturn(0);
+        when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -339,10 +347,11 @@ public class UserServiceUnitTest {
     void delete_ShouldReturnFailure_WhenUserNotFound() {
         // Arrange
         long id = 1L;
+        CustomUserDetails userDetails = mock(CustomUserDetails.class);
         when(userRepository.existsById(id)).thenReturn(false);
 
         // Act
-        Result<Void> result = userService.delete(id);
+        Result<Void> result = userService.delete(id, userDetails);
 
         // Assert
         assertFalse(result.isSuccess());
@@ -353,19 +362,94 @@ public class UserServiceUnitTest {
     }
 
     @Test
-    void delete_ShouldReturnSuccess_WhenUserDeleted() {
+    void delete_ShouldReturnFailure_WhenUserTriesToDeleteSelfWithoutPermission() {
         // Arrange
         long id = 1L;
+        User user = new User();
+        user.setId(id);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+
         when(userRepository.existsById(id)).thenReturn(true);
-        doNothing().when(userRepository).deleteById(id);
-        when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
+        when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Self")).thenReturn(false);
 
         // Act
-        Result<Void> result = userService.delete(id);
+        Result<Void> result = userService.delete(id, userDetails);
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertEquals("User.NotAuthorized", result.getError().code());
+        assertEquals("User not authorized for delete self.", result.getError().description());
+        verify(userRepository, times(1)).existsById(id);
+        verify(userRepository, never()).deleteById(id);
+    }
+
+    @Test
+    void delete_ShouldReturnFailure_WhenUserTriesToDeleteAnotherUserWithoutPermission() {
+        // Arrange
+        long id = 1L;
+        User user = new User();
+        user.setId(2L);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+
+        when(userRepository.existsById(id)).thenReturn(true);
+        when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Any")).thenReturn(false);
+
+        // Act
+        Result<Void> result = userService.delete(id, userDetails);
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertEquals("User.NotAuthorized", result.getError().code());
+        assertEquals("User not authorized for delete any.", result.getError().description());
+        verify(userRepository, times(1)).existsById(id);
+        verify(userRepository, never()).deleteById(id);
+    }
+
+    @Test
+    void delete_ShouldReturnSuccess_WhenUserDeletesSelfWithPermission() {
+        // Arrange
+        long id = 1L;
+        User user = new User();
+        user.setId(id);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+
+        when(userRepository.existsById(id)).thenReturn(true);
+        when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Self")).thenReturn(true);
+        doNothing().when(userRepository).deleteById(id);
+        Cache cache = mock(Cache.class);
+        when(cacheManager.getCache("users")).thenReturn(cache);
+
+        // Act
+        Result<Void> result = userService.delete(id, userDetails);
 
         // Assert
         assertTrue(result.isSuccess());
         verify(userRepository, times(1)).existsById(id);
         verify(userRepository, times(1)).deleteById(id);
+        verify(cache, times(1)).evict("all");
+    }
+
+    @Test
+    void delete_ShouldReturnSuccess_WhenUserDeletesAnotherUserWithPermission() {
+        // Arrange
+        long id = 1L;
+        User user = new User();
+        user.setId(2L);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+
+        when(userRepository.existsById(id)).thenReturn(true);
+        when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Any")).thenReturn(true);
+        doNothing().when(userRepository).deleteById(id);
+        Cache cache = mock(Cache.class);
+        when(cacheManager.getCache("users")).thenReturn(cache);
+
+        // Act
+        Result<Void> result = userService.delete(id, userDetails);
+
+        // Assert
+        assertTrue(result.isSuccess());
+        verify(userRepository, times(1)).existsById(id);
+        verify(userRepository, times(1)).deleteById(id);
+        verify(cache, times(1)).evict("all");
     }
 }

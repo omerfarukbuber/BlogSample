@@ -4,18 +4,23 @@ import com.omerfbuber.dtos.users.request.ChangePasswordRequest;
 import com.omerfbuber.dtos.users.request.CreateUserRequest;
 import com.omerfbuber.dtos.users.request.UpdateUserRequest;
 import com.omerfbuber.dtos.users.response.UserResponse;
+import com.omerfbuber.entities.Permission;
 import com.omerfbuber.entities.Role;
 import com.omerfbuber.entities.User;
 import com.omerfbuber.repositories.users.UserRepository;
 import com.omerfbuber.results.Error;
 import com.omerfbuber.results.Result;
+import com.omerfbuber.services.shared.CustomUserDetails;
+import com.omerfbuber.services.shared.CustomUserDetailsService;
 import com.omerfbuber.services.shared.PasswordHasher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -27,11 +32,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final CacheManager cacheManager;
     private final PasswordHasher passwordHasher;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public UserServiceImpl(UserRepository userRepository, CacheManager cacheManager, PasswordHasher passwordHasher) {
+    public UserServiceImpl(UserRepository userRepository, CacheManager cacheManager, PasswordHasher passwordHasher, CustomUserDetailsService customUserDetailsService) {
         this.userRepository = userRepository;
         this.cacheManager = cacheManager;
         this.passwordHasher = passwordHasher;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Cacheable(value = "users", key = "'all'")
@@ -143,6 +150,11 @@ public class UserServiceImpl implements UserService {
             return Result.failure(Error.problem("User.WrongPassword", "Password is incorrect"));
         }
 
+        if (!request.confirmPassword().equals(request.newPassword())) {
+            log.warn("New Passwords mismatched" );
+            return Result.failure(Error.problem("PasswordMismatch", "Passwords do not match"));
+        }
+
         entity.setPassword(passwordHasher.hash(request.newPassword()));
         var result = userRepository.updateUserPassword(request.email(), request.newPassword());
 
@@ -157,11 +169,27 @@ public class UserServiceImpl implements UserService {
 
     @CacheEvict(value = "users", key = "#id")
     @Override
-    public Result<Void> delete(long id) {
+    public Result<Void> delete(long id, CustomUserDetails customUserDetails) {
+        final String UserDeleteSelf = "User.Delete.Self";
+        final String UserDeleteAny = "User.Delete.Any";
+
         log.info("Deleting user with ID: {}", id);
+
         if (!userRepository.existsById(id)) {
             log.warn("User with ID: {} not found", id);
             return Result.failure(Error.notFound("User.NotFound", "User with id " + id + " not found"));
+        }
+
+        if (customUserDetails.getUser().getId() == id
+                && !customUserDetailsService.containsPermission(customUserDetails, UserDeleteSelf)) {
+            log.warn("User with ID: {} not authorized for delete self", id);
+            return Result.failure(Error.forbidden("User.NotAuthorized", "User not authorized for delete self."));
+        }
+
+        if (customUserDetails.getUser().getId() != id
+                && !customUserDetailsService.containsPermission(customUserDetails, UserDeleteAny)) {
+            log.warn("User with ID: {} not authorized for delete any", id);
+            return Result.failure(Error.forbidden("User.NotAuthorized", "User not authorized for delete any."));
         }
 
         userRepository.deleteById(id);

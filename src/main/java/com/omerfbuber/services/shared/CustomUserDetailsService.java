@@ -21,4 +21,11 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
+
+    public boolean containsPermission(CustomUserDetails customUserDetails, String permission) {
+        var authorities = customUserDetails.getAuthorities();
+        return authorities.stream()
+                .anyMatch(authority -> authority.getAuthority().equals(permission));
+    }
+
 }

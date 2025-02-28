@@ -5,18 +5,24 @@ import com.omerfbuber.dtos.users.request.ChangePasswordRequest;
 import com.omerfbuber.dtos.users.request.CreateUserRequest;
 import com.omerfbuber.dtos.users.request.UpdateUserRequest;
 import com.omerfbuber.dtos.users.response.UserResponse;
+import com.omerfbuber.entities.Permission;
+import com.omerfbuber.entities.Role;
 import com.omerfbuber.repositories.users.UserRepository;
 import com.omerfbuber.results.Result;
+import com.omerfbuber.services.shared.CustomUserDetails;
+import com.omerfbuber.services.shared.CustomUserDetailsService;
 import com.omerfbuber.services.users.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +35,10 @@ public class UserServiceIntegrationTest {
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CacheManager cacheManager;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     private CreateUserRequest createUserRequest;
 
@@ -177,16 +187,71 @@ public class UserServiceIntegrationTest {
     }
 
     @Test
-    void delete_ShouldRemoveUser_WhenUserExists() {
+    void delete_ShouldRemoveUser_WhenUserExistsAndHasPermission() {
+        CreateUserRequest request2 = new CreateUserRequest(
+                "Jane", "Doe", "jane.doe@example.com",
+                "password123", "password123", new Date());
         var savedUser = userService.save(createUserRequest).getValue();
-        Result<Void> result = userService.delete(savedUser.id());
+        var user = userRepository.findById(savedUser.id()).get();
+        user.getRole().setPermissions(Set.of(new Permission("User.Delete.Any")));
+        userRepository.save(user);
+        var deleteUser = userService.save(request2).getValue();
+
+        var customUserDetail = new CustomUserDetails(user);
+        Result<Void> result = userService.delete(deleteUser.id(), customUserDetail);
+
+
+        assertTrue(result.isSuccess());
+        assertFalse(userRepository.existsById(deleteUser.id()));
+    }
+
+    @Test
+    void delete_ShouldSucceed_WhenUserDeletesSelfWithPermission() {
+        var savedUser = userService.save(createUserRequest).getValue();
+
+        var customUserDetail = (CustomUserDetails) customUserDetailsService.loadUserByUsername(savedUser.email());
+        Result<Void> result = userService.delete(savedUser.id(), customUserDetail);
+
         assertTrue(result.isSuccess());
         assertFalse(userRepository.existsById(savedUser.id()));
     }
 
     @Test
+    void delete_ShouldFail_WhenUserTriesToDeleteSelfWithoutPermission() {
+        var savedUser = userService.save(createUserRequest).getValue();
+        var user = userRepository.findById(savedUser.id()).get();
+        user.setRole(Role.getEmptyRole());
+        userRepository.save(user);
+
+        var customUserDetail = new CustomUserDetails(user);
+        Result<Void> result = userService.delete(savedUser.id(), customUserDetail);
+
+        assertFalse(result.isSuccess());
+        assertEquals("User.NotAuthorized", result.getError().code());
+        assertEquals("User not authorized for delete self.", result.getError().description());
+    }
+
+    @Test
+    void delete_ShouldFail_WhenUserTriesToDeleteAnotherUserWithoutPermission() {
+        CreateUserRequest request2 = new CreateUserRequest(
+                "Jane", "Doe", "jane.doe@example.com",
+                "password123", "password123", new Date());
+        var savedUser = userService.save(createUserRequest).getValue();
+        var deleteUser = userService.save(request2).getValue();
+
+        var customUserDetail = (CustomUserDetails) customUserDetailsService.loadUserByUsername(savedUser.email());
+        Result<Void> result = userService.delete(deleteUser.id(), customUserDetail);
+
+        assertFalse(result.isSuccess());
+        assertEquals("User.NotAuthorized", result.getError().code());
+        assertEquals("User not authorized for delete any.", result.getError().description());
+    }
+
+    @Test
     void delete_ShouldFail_WhenUserDoesNotExist() {
-        Result<Void> result = userService.delete(999L);
+        var savedUser = userService.save(createUserRequest).getValue();
+        var customUserDetail = (CustomUserDetails) customUserDetailsService.loadUserByUsername(savedUser.email());
+        Result<Void> result = userService.delete(999L, customUserDetail);
         assertFalse(result.isSuccess());
         assertEquals("User.NotFound", result.getError().code());
     }
