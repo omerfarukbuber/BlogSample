@@ -1,28 +1,35 @@
 # BasicRestApi
 
-BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the database. The project follows a layered architecture with Repository and Service layers. It utilizes the Result pattern, ProblemDetail for error handling, and global exception handling. Validation is implemented using Spring's validation framework, with localized validation messages stored in `messages.properties` and `messages_en.properties`. The project also includes both unit and integration tests.
+BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the database. The project follows a layered architecture with Repository and Service layers. It provides user authentication, role-based access control, caching, validation, and logging. The API is documented with Swagger-UI and follows best practices such as using the Result pattern, ProblemDetails, and global exception handling. Validation is implemented using Spring's validation framework, with localized validation messages stored in `messages.properties` and `messages_en.properties`. The project also includes both unit and integration tests.
 
 ## Features
 
 - Java Spring Boot REST API
 - PostgreSQL database
 - Repository and Service layers
+- JWT Authentication & Authorization
+- Refresh Token System
+- Redis Caching
+- Logging with SLF4J
 - Result pattern implementation
 - ProblemDetail-based global exception handling
 - Validation using Spring Validation
 - Localized validation messages
 - Unit and integration tests
-- OpenAPI documentation
+- Swagger-UI documentation
 
 ## Technologies Used
 
 - **Spring Boot** - Framework for building the REST API
 - **Spring Data JPA** - Database interaction
+- **Spring Security** - JWT-based authentication
 - **PostgreSQL** - Relational database
+- **Redis** - Caching
+- **SLF4J** - Logging
 - **Spring Validation** - Request validation
 - **ProblemDetail** - Error handling
 - **JUnit, Mockito** - Unit and integration testing
-- **OpenAPI** - API documentation
+- **Swagger-UI** - API documentation
 
 ## Installation
 
@@ -39,6 +46,21 @@ BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the 
    spring.datasource.password=your_password
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+   spring.cache.type=redis
+   spring.data.redis.host=localhost
+   spring.data.redis.port=6379
+
+   logging.level.org.springframework=INFO
+   logging.level.com.omerfbuber=DEBUG
+   logging.file.name=logs/application.log
+   logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} - [%level] %msg%n
+
+   #expiration as minutes
+   security.jwt.expiration=60
+   security.jwt.secret=super-duper-secret-value-that-should-be-in-user-secrets
+   #refresh token expiration as days
+   security.jwt.refreshtoken.expiration=7
    ```
 
 3. Build and run the application:
@@ -48,6 +70,13 @@ BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the 
    ```
 
 ## API Endpoints
+
+### Authentication
+| Method | Endpoint | Description |
+|--------|---------|-------------|
+| `POST` | `/api/auth/login` | Login and get access token |
+| `POST` | `/api/auth/refresh` | Refresh access token with refresh token |
+| `POST` | `/api/auth/logout` | Logout and delete refresh token |
 
 ### Users
 | Method | Endpoint | Description |
@@ -66,6 +95,16 @@ To run unit and integration tests:
 ```sh
 mvn test
 ```
+
+## Documentation
+
+Swagger-UI is available at:
+```sh
+http://localhost:8080/swagger-ui/index.html
+```
+http://localhost:8080/swagger-ui.html
+
+
 
 ## License
 
