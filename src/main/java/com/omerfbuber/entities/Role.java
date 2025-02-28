@@ -53,5 +53,9 @@ public class Role {
         return new Role(2L, "USER");
     }
 
+    public static Role getEmptyRole() {
+        return new Role (3L, "EMPTY");
+    }
+
 
 }

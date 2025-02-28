@@ -44,6 +44,9 @@ public class DataSeeder implements CommandLineRunner {
         Role user = roleRepository.findByName("User").orElseGet(
                 () -> roleRepository.save(new Role("User")));
 
+        Role empty = roleRepository.findByName("Empty").orElseGet(
+                () -> roleRepository.save(new Role("Empty")));
+
         Set<Permission> allPermissions = new HashSet<>(permissionRepository.findAll());
         Set<Permission> userPermissions = new HashSet<>(permissionRepository.findByNameIn(
                 Arrays.asList("User.Read", "User.Delete.Self")).orElse(Collections.emptyList()));
@@ -60,5 +63,7 @@ public class DataSeeder implements CommandLineRunner {
             user.setPermissions(userPermissions);
             roleRepository.save(user);
         }
+
+        roleRepository.save(empty);
     }
 }
