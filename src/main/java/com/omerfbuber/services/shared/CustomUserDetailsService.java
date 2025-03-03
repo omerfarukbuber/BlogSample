@@ -1,6 +1,6 @@
 package com.omerfbuber.services.shared;
 
-import com.omerfbuber.repositories.users.UserRepository;
+import com.omerfbuber.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

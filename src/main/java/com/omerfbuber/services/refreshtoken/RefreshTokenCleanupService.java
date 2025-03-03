@@ -1,6 +1,6 @@
 package com.omerfbuber.services.refreshtoken;
 
-import com.omerfbuber.repositories.refreshtoken.RefreshTokenRepository;
+import com.omerfbuber.repository.RefreshTokenRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 

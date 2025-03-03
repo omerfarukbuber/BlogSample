@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.omerfbuber</groupId>
-	<artifactId>BasicRestApi</artifactId>
+	<artifactId>BlogSample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BasicRestApi</name>
 	<description>BasicRestApi</description>
