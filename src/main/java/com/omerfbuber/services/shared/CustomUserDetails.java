@@ -1,6 +1,6 @@
 package com.omerfbuber.services.shared;
 
-import com.omerfbuber.entities.User;
+import com.omerfbuber.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
