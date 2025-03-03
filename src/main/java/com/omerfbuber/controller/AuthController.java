@@ -4,7 +4,7 @@ import com.omerfbuber.dto.auth.LoginRequest;
 import com.omerfbuber.dto.auth.RefreshTokenRequest;
 import com.omerfbuber.dto.auth.TokenResponse;
 import com.omerfbuber.extension.ResponseEntityExtension;
-import com.omerfbuber.services.auth.AuthenticationService;
+import com.omerfbuber.service.auth.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

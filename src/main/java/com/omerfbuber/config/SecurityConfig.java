@@ -48,7 +48,7 @@ public class SecurityConfig {
                             .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAuthority("User.Update")
                             .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasAuthority("User.Delete.Self")
                             .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                            .requestMatchers("api/auth/**").permitAll()
+                            .requestMatchers("/api/auth/**").permitAll()
                             .anyRequest().authenticated())
                 .exceptionHandling(exceptionHandler ->
                         exceptionHandler.authenticationEntryPoint(

@@ -1,4 +1,4 @@
-package com.omerfbuber.services.user;
+package com.omerfbuber.service.user;
 
 import com.omerfbuber.dto.user.ChangePasswordRequest;
 import com.omerfbuber.dto.user.CreateUserRequest;
@@ -9,8 +9,8 @@ import com.omerfbuber.entity.User;
 import com.omerfbuber.repository.UserRepository;
 import com.omerfbuber.result.Error;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.services.shared.CustomUserDetails;
-import com.omerfbuber.services.shared.CustomUserDetailsService;
+import com.omerfbuber.service.shared.CustomUserDetails;
+import com.omerfbuber.service.shared.CustomUserDetailsService;
 import com.omerfbuber.util.PasswordHasher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
@@ -189,7 +189,9 @@ public class UserServiceImpl implements UserService {
             return Result.failure(Error.forbidden("User.NotAuthorized", "User not authorized for delete any."));
         }
 
-        userRepository.deleteById(id);
+        var user = userRepository.findById(id).get();
+        user.setDeleted(true);
+        userRepository.save(user);
         log.info("User with ID: {} deleted successfully", id);
         Objects.requireNonNull(cacheManager.getCache("users")).evict("all");
         return Result.success();

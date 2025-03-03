@@ -1,4 +1,4 @@
-package com.omerfbuber.services.refreshtoken;
+package com.omerfbuber.service.refreshtoken;
 
 import com.omerfbuber.repository.RefreshTokenRepository;
 import lombok.extern.slf4j.Slf4j;

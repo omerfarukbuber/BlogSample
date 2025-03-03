@@ -1,11 +1,11 @@
-package com.omerfbuber.services.user;
+package com.omerfbuber.service.user;
 
 import com.omerfbuber.dto.user.ChangePasswordRequest;
 import com.omerfbuber.dto.user.CreateUserRequest;
 import com.omerfbuber.dto.user.UpdateUserRequest;
 import com.omerfbuber.dto.user.UserResponse;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.services.shared.CustomUserDetails;
+import com.omerfbuber.service.shared.CustomUserDetails;
 
 import java.util.List;
 
