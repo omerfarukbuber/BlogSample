@@ -1,6 +1,6 @@
-# BasicRestApi
+# BlogSample
 
-BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the database. The project follows a layered architecture with Repository and Service layers. It provides user authentication, role-based access control, caching, validation, and logging. The API is documented with Swagger-UI and follows best practices such as using the Result pattern, ProblemDetails, and global exception handling. Validation is implemented using Spring's validation framework, with localized validation messages stored in `messages.properties` and `messages_en.properties`. The project also includes both unit and integration tests.
+BlogSample is a REST API built with Java Spring Boot, using PostgreSQL as the database. The project follows a layered architecture with Repository and Service layers. It provides user authentication, role-based access control, caching, validation, and logging. The API is documented with Swagger-UI and follows best practices such as using the Result pattern, ProblemDetails, and global exception handling. Validation is implemented using Spring's validation framework, with localized validation messages stored in `messages.properties` and `messages_en.properties`. The project also includes both unit and integration tests.
 
 ## Features
 
@@ -35,8 +35,8 @@ BasicRestApi is a REST API built with Java Spring Boot, using PostgreSQL as the 
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/omerfarukbuber/BasicRestApi.git
-   cd BasicRestApi
+   git clone https://github.com/omerfarukbuber/BlogSample.git
+   cd BlogSample
    ```
 
 2. Configure the database in `application.properties`:
