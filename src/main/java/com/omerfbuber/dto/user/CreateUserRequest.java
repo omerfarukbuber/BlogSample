@@ -3,7 +3,7 @@ package com.omerfbuber.dto.user;
 import com.omerfbuber.entity.User;
 import jakarta.validation.constraints.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record CreateUserRequest (
         @NotBlank(message = "{validation.firstName.notBlank}")
@@ -28,7 +28,7 @@ public record CreateUserRequest (
 
         @NotNull(message = "{validation.birthDate.notNull}")
         @Past(message = "{validation.birthDate.past}")
-        Date birthDate
+        LocalDateTime birthDate
 ) {
     public User toUser()
     {

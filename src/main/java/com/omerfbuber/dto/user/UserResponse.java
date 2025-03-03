@@ -3,8 +3,8 @@ package com.omerfbuber.dto.user;
 import com.omerfbuber.entity.User;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,7 +13,7 @@ public record UserResponse(
         String firstName,
         String lastName,
         String email,
-        Date birthDate
+        LocalDateTime birthDate
 ) implements Serializable {
     
     public static UserResponse of(User user) {
