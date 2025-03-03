@@ -9,9 +9,9 @@ import com.omerfbuber.entity.Permission;
 import com.omerfbuber.entity.Role;
 import com.omerfbuber.repository.UserRepository;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.services.shared.CustomUserDetails;
-import com.omerfbuber.services.shared.CustomUserDetailsService;
-import com.omerfbuber.services.user.UserService;
+import com.omerfbuber.service.shared.CustomUserDetails;
+import com.omerfbuber.service.shared.CustomUserDetailsService;
+import com.omerfbuber.service.user.UserService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +20,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.TestPropertySource;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class UserServiceIntegrationTest {
     void setUp() {
         createUserRequest = new CreateUserRequest(
                 "John", "Doe", "john.doe@example.com",
-                "password123", "password123", new Date()
+                "password123", "password123", LocalDateTime.now()
         );
     }
 
@@ -55,7 +56,7 @@ public class UserServiceIntegrationTest {
         // Arrange
         CreateUserRequest request2 = new CreateUserRequest(
                 "Jane", "Doe", "jane.doe@example.com",
-                "password123", "password123", new Date());
+                "password123", "password123", LocalDateTime.now());
         userService.save(createUserRequest);
         userService.save(request2);
 
@@ -73,7 +74,7 @@ public class UserServiceIntegrationTest {
         // Arrange
         CreateUserRequest request2 = new CreateUserRequest(
                 "Jane", "Doe", "jane.doe@example.com",
-                "password123", "password123", new Date());
+                "password123", "password123", LocalDateTime.now());
         userService.save(createUserRequest);
         userService.save(request2);
 
@@ -139,7 +140,7 @@ public class UserServiceIntegrationTest {
     void save_ShouldFail_WhenPasswordsDoNotMatch() {
         CreateUserRequest invalidRequest = new CreateUserRequest(
                 "Jane", "Doe", "jane.doe@example.com",
-                "password123", "differentPassword", new Date()
+                "password123", "differentPassword", LocalDateTime.now()
         );
         Result<UserResponse> result = userService.save(invalidRequest);
         assertFalse(result.isSuccess());
@@ -153,7 +154,7 @@ public class UserServiceIntegrationTest {
         assertTrue(saveResult.isSuccess());
 
         UpdateUserRequest updateRequest = new UpdateUserRequest(saveResult.getValue().id(),
-                "John", "Smith", new Date());
+                "John", "Smith", LocalDateTime.now());
 
         // Act
         Result<Void> result = userService.update(updateRequest);
@@ -190,7 +191,7 @@ public class UserServiceIntegrationTest {
     void delete_ShouldRemoveUser_WhenUserExistsAndHasPermission() {
         CreateUserRequest request2 = new CreateUserRequest(
                 "Jane", "Doe", "jane.doe@example.com",
-                "password123", "password123", new Date());
+                "password123", "password123", LocalDateTime.now());
         var savedUser = userService.save(createUserRequest).getValue();
         var user = userRepository.findById(savedUser.id()).get();
         user.getRole().setPermissions(Set.of(new Permission("User.Delete.Any")));
@@ -235,7 +236,7 @@ public class UserServiceIntegrationTest {
     void delete_ShouldFail_WhenUserTriesToDeleteAnotherUserWithoutPermission() {
         CreateUserRequest request2 = new CreateUserRequest(
                 "Jane", "Doe", "jane.doe@example.com",
-                "password123", "password123", new Date());
+                "password123", "password123", LocalDateTime.now());
         var savedUser = userService.save(createUserRequest).getValue();
         var deleteUser = userService.save(request2).getValue();
 

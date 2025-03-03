@@ -1,4 +1,4 @@
-package com.omerfbuber.services.auth;
+package com.omerfbuber.service.auth;
 
 import com.omerfbuber.dto.auth.LoginRequest;
 import com.omerfbuber.dto.auth.RefreshTokenRequest;
