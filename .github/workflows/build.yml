@@ -24,7 +24,6 @@ jobs:
         image: redis:latest
         ports:
           - 6379:6379
-        options: --entrypoint redis-server
         
     steps:
     - name: Checkout Repository
@@ -53,9 +52,17 @@ jobs:
           sleep 2
         done
         echo "Redis did not start in time" && exit 1
+
+    - name: Cache Maven Dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          maven-${{ runner.os }}-
  
     - name: Build with Maven
-      run: mvn clean package -DskipTests-true #Skip the tests
+      run: mvn clean package -DskipTests=true #Skip the tests
 
     - name: Run Tests
       run: mvn test
