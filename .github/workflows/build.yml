@@ -55,7 +55,7 @@ jobs:
         echo "Redis did not start in time" && exit 1
  
     - name: Build with Maven
-      run: mvn clear package -DskipTests-true #Skip the tests
+      run: mvn clean package -DskipTests-true #Skip the tests
 
     - name: Run Tests
       run: mvn test
