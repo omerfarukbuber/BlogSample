@@ -11,8 +11,8 @@
 	<groupId>com.omerfbuber</groupId>
 	<artifactId>BlogSample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BasicRestApi</name>
-	<description>BasicRestApi</description>
+	<name>BlogSample</name>
+	<description>A Sample Blog Project</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -89,6 +89,35 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers-bom</artifactId>
+			<version>1.20.5</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

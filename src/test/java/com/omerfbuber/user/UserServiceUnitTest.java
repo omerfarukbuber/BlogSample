@@ -8,11 +8,11 @@ import com.omerfbuber.dto.user.UserResponse;
 import com.omerfbuber.entity.User;
 import com.omerfbuber.repository.UserRepository;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.services.shared.CustomUserDetails;
-import com.omerfbuber.services.shared.CustomUserDetailsService;
+import com.omerfbuber.service.shared.CustomUserDetails;
+import com.omerfbuber.service.shared.CustomUserDetailsService;
 import com.omerfbuber.util.PasswordHasher;
-import com.omerfbuber.services.user.UserService;
-import com.omerfbuber.services.user.UserServiceImpl;
+import com.omerfbuber.service.user.UserService;
+import com.omerfbuber.service.user.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,6 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -52,9 +53,9 @@ public class UserServiceUnitTest {
     void getAll_ShouldReturnListOfUsers_WhenUsersExist() {
         //Arrange
         List<User> users = List.of(
-                new User(1L, "john.doe@example.com", "hashedpassword123", "John", "Doe", new Date()),
-                new User(2L, "jane.doe@example.com", "securepassword456", "Jane", "Doe", new Date()),
-                new User(3L, "alice.smith@example.com", "mypassword789", "Alice", "Smith", new Date())
+                new User(1L, "john.doe@example.com", "hashedpassword123", "John", "Doe", LocalDateTime.now()),
+                new User(2L, "jane.doe@example.com", "securepassword456", "Jane", "Doe", LocalDateTime.now()),
+                new User(3L, "alice.smith@example.com", "mypassword789", "Alice", "Smith", LocalDateTime.now())
         );
 
         when(userRepository.findAll()).thenReturn(users);
@@ -120,7 +121,7 @@ public class UserServiceUnitTest {
     void getById_ShouldReturnUser_WhenUserExists() {
         long userId = 1L;
         var user = new User(userId, "john.doe@example.com",
-                "hashedpassword123", "John", "Doe", new Date());
+                "hashedpassword123", "John", "Doe", LocalDateTime.now());
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
@@ -151,7 +152,7 @@ public class UserServiceUnitTest {
     public void save_ShouldReturnConflict_WhenUserEmailAlreadyExists() {
         // Arrange
         String email = "test@example.com";
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", email, "password123", "password123", new Date());
+        CreateUserRequest request = new CreateUserRequest("John", "Doe", email, "password123", "password123", LocalDateTime.now());
         when(userRepository.existsByEmail(email)).thenReturn(true);
 
         // Act
@@ -168,7 +169,7 @@ public class UserServiceUnitTest {
     @Test
     public void save_ShouldReturnPasswordMismatch_WhenPasswordsDoNotMatch() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", "test@example.com", "password123", "password456", new Date());
+        CreateUserRequest request = new CreateUserRequest("John", "Doe", "test@example.com", "password123", "password456", LocalDateTime.now());
         when(userRepository.existsByEmail(request.email())).thenReturn(false);
 
         // Act
@@ -185,8 +186,8 @@ public class UserServiceUnitTest {
     @Test
     public void save_ShouldReturnCreated_WhenUserIsSavedSuccessfully() {
         // Arrange
-        CreateUserRequest request = new CreateUserRequest("John", "Doe", "test@example.com", "password123", "password123", new Date());
-        User savedUser = new User(1L, "test@example.com", "password123", "John", "Doe", new Date());
+        CreateUserRequest request = new CreateUserRequest("John", "Doe", "test@example.com", "password123", "password123", LocalDateTime.now());
+        User savedUser = new User(1L, "test@example.com", "password123", "John", "Doe", LocalDateTime.now());
         when(userRepository.existsByEmail(request.email())).thenReturn(false);
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
         when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
@@ -207,7 +208,7 @@ public class UserServiceUnitTest {
     public void update_ShouldReturnNotFound_WhenUserDoesNotExist() {
         // Arrange
         long userId = 1L;
-        UpdateUserRequest request = new UpdateUserRequest(userId, "John", "Doe", new Date());
+        UpdateUserRequest request = new UpdateUserRequest(userId, "John", "Doe", LocalDateTime.now());
         when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
         // Act
@@ -223,8 +224,8 @@ public class UserServiceUnitTest {
     public void update_ShouldReturnSuccess_WhenUserIsFoundAndUpdated() {
         // Arrange
         long userId = 1L;
-        UpdateUserRequest request = new UpdateUserRequest(userId, "John", "Doe", new Date());
-        User existingUser = new User(userId, "oldEmail@example.com", "oldPassword", "Old", "Name", new Date());
+        UpdateUserRequest request = new UpdateUserRequest(userId, "John", "Doe", LocalDateTime.now());
+        User existingUser = new User(userId, "oldEmail@example.com", "oldPassword", "Old", "Name", LocalDateTime.now());
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
         when(userRepository.save(any(User.class))).thenReturn(existingUser);
         when(cacheManager.getCache("users")).thenReturn(mock(Cache.class));
@@ -267,7 +268,7 @@ public class UserServiceUnitTest {
         // Arrange
         String email = "test@example.com";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "wrongPassword", "newPassword", "newPassword");
-        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
+        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(false);
 
@@ -287,7 +288,7 @@ public class UserServiceUnitTest {
         // Arrange
         String email = "test@example.com";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", "newPassword", "differentPassword");
-        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
+        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
 
@@ -307,7 +308,7 @@ public class UserServiceUnitTest {
         String email = "test@example.com";
         String newPassword = "newPassword";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", newPassword, newPassword);
-        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
+        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.updateUserPassword(email, newPassword)).thenReturn(1);
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
@@ -327,7 +328,7 @@ public class UserServiceUnitTest {
         String email = "test@example.com";
         String newPassword = "newPassword";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", newPassword, newPassword);
-        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", new Date());
+        User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
         when(userRepository.updateUserPassword(email, newPassword)).thenReturn(0);
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
@@ -415,7 +416,8 @@ public class UserServiceUnitTest {
 
         when(userRepository.existsById(id)).thenReturn(true);
         when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Self")).thenReturn(true);
-        doNothing().when(userRepository).deleteById(id);
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(null);
         Cache cache = mock(Cache.class);
         when(cacheManager.getCache("users")).thenReturn(cache);
 
@@ -425,7 +427,7 @@ public class UserServiceUnitTest {
         // Assert
         assertTrue(result.isSuccess());
         verify(userRepository, times(1)).existsById(id);
-        verify(userRepository, times(1)).deleteById(id);
+        verify(userRepository, times(1)).save(any(User.class));
         verify(cache, times(1)).evict("all");
     }
 
@@ -439,7 +441,8 @@ public class UserServiceUnitTest {
 
         when(userRepository.existsById(id)).thenReturn(true);
         when(customUserDetailsService.containsPermission(userDetails, "User.Delete.Any")).thenReturn(true);
-        doNothing().when(userRepository).deleteById(id);
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        when(userRepository.save(any(User.class))).thenReturn(null);
         Cache cache = mock(Cache.class);
         when(cacheManager.getCache("users")).thenReturn(cache);
 
@@ -449,7 +452,7 @@ public class UserServiceUnitTest {
         // Assert
         assertTrue(result.isSuccess());
         verify(userRepository, times(1)).existsById(id);
-        verify(userRepository, times(1)).deleteById(id);
+        verify(userRepository, times(1)).save(any(User.class));
         verify(cache, times(1)).evict("all");
     }
 }

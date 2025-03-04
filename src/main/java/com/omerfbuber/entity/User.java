@@ -2,19 +2,20 @@ package com.omerfbuber.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SQLRestriction("is_deleted = false")
 @Table(name = "users", indexes = {@Index(name = "idx_users_email", columnList = "email")})
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,13 +37,13 @@ public class User {
     @JsonFormat(pattern = "dd.MM.yyyy")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDateTime birthDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public User(Long id, String email, String password, String firstName, String lastName, Date birthDate) {
+    public User(Long id, String email, String password, String firstName, String lastName, LocalDateTime birthDate) {
         this.id = id;
         this.email = email;
         this.password = password;

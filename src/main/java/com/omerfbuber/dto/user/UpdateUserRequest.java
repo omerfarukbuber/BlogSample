@@ -2,7 +2,7 @@ package com.omerfbuber.dto.user;
 
 import jakarta.validation.constraints.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record UpdateUserRequest(
         @Positive(message = "{validation.id.positive}")
@@ -18,5 +18,5 @@ public record UpdateUserRequest(
 
         @NotNull(message = "{validation.birthDate.notNull}")
         @Past(message = "{validation.birthDate.past}")
-        Date birthDate
+        LocalDateTime birthDate
 ) { }
