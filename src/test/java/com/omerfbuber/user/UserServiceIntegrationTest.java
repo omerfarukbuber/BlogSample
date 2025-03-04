@@ -1,6 +1,7 @@
 package com.omerfbuber.user;
 
 import com.omerfbuber.BlogSample;
+import com.omerfbuber.TestContainerConfig;
 import com.omerfbuber.dto.user.ChangePasswordRequest;
 import com.omerfbuber.dto.user.CreateUserRequest;
 import com.omerfbuber.dto.user.UpdateUserRequest;
@@ -17,11 +18,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cache.CacheManager;
 import org.springframework.test.context.TestPropertySource;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,15 +29,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {BlogSample.class})
 @TestPropertySource(locations = "classpath:application-test.properties")
+@Testcontainers
 @Transactional
-public class UserServiceIntegrationTest {
+public class UserServiceIntegrationTest extends TestContainerConfig {
 
     @Autowired
     private UserService userService;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private CacheManager cacheManager;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
