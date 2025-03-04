@@ -15,7 +15,7 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpassword
+          POSTGRES_PASSWORD: testpass
           POSTGRES_DB: testdb
         ports:
           - 5432:5432
@@ -29,10 +29,10 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
-    - name: Set up JDK 21
+    - name: Set up JDK 22
       uses: actions/setup-java@v4
       with:
-        java-version: '21'
+        java-version: '22'
         distribution: 'temurin'
         cache: maven
 
