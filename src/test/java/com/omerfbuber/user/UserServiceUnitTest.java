@@ -1,6 +1,5 @@
 package com.omerfbuber.user;
 
-import com.omerfbuber.BlogSample;
 import com.omerfbuber.dto.user.ChangePasswordRequest;
 import com.omerfbuber.dto.user.CreateUserRequest;
 import com.omerfbuber.dto.user.UpdateUserRequest;
@@ -15,21 +14,21 @@ import com.omerfbuber.service.user.UserService;
 import com.omerfbuber.service.user.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {BlogSample.class})
+@ExtendWith(MockitoExtension.class)
 public class UserServiceUnitTest {
 
     @Mock
