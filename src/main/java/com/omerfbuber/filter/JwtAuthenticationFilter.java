@@ -1,7 +1,8 @@
 package com.omerfbuber.filter;
 
-import com.omerfbuber.service.shared.CustomUserDetailsService;
+import com.omerfbuber.service.user.CustomUserDetailsService;
 import com.omerfbuber.util.TokenProvider;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class JwtAuthenticationFilter  extends OncePerRequestFilter {
@@ -25,16 +27,33 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull FilterChain filterChain)
             throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        final String bearer = "Bearer ";
+        final String authHeader = request.getHeader("Authorization");
+
+        final Set<String> permittedUrls = Set.of("/api/auth/", "/swagger-ui/", "/v3/api-docs/");
+
+        //For the register endpoint with POST method
+        final String userPostEndpoint = "/api/users";
+
+        if (authHeader == null || !authHeader.startsWith(bearer)) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String authToken = authHeader.substring(7);
+        if (request.getRequestURI().startsWith(userPostEndpoint) && request.getMethod().equals("POST")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (permittedUrls.stream().anyMatch(permittedUrl -> request.getRequestURI().startsWith(permittedUrl))) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String authToken = authHeader.substring(bearer.length());
         String email = tokenProvider.extractEmail(authToken);
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -9,8 +9,6 @@ import com.omerfbuber.entity.User;
 import com.omerfbuber.repository.UserRepository;
 import com.omerfbuber.result.Error;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.service.shared.CustomUserDetails;
-import com.omerfbuber.service.shared.CustomUserDetailsService;
 import com.omerfbuber.util.PasswordHasher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
@@ -152,8 +150,7 @@ public class UserServiceImpl implements UserService {
             return Result.failure(Error.problem("PasswordMismatch", "Passwords do not match"));
         }
 
-        entity.setPassword(passwordHasher.hash(request.newPassword()));
-        var result = userRepository.updateUserPassword(request.email(), request.newPassword());
+        var result = userRepository.updateUserPassword(request.email(), passwordHasher.hash(request.newPassword()));
 
         if (result > 0) {
             log.info("Password changed successfully for email: {}", request.email());
