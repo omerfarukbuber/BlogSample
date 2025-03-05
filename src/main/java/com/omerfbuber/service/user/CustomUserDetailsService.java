@@ -1,4 +1,4 @@
-package com.omerfbuber.service.shared;
+package com.omerfbuber.service.user;
 
 import com.omerfbuber.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;

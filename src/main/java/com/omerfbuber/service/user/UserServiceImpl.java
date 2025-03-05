@@ -9,8 +9,6 @@ import com.omerfbuber.entity.User;
 import com.omerfbuber.repository.UserRepository;
 import com.omerfbuber.result.Error;
 import com.omerfbuber.result.Result;
-import com.omerfbuber.service.shared.CustomUserDetails;
-import com.omerfbuber.service.shared.CustomUserDetailsService;
 import com.omerfbuber.util.PasswordHasher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;

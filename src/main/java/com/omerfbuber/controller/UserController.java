@@ -5,7 +5,7 @@ import com.omerfbuber.dto.user.CreateUserRequest;
 import com.omerfbuber.dto.user.UpdateUserRequest;
 import com.omerfbuber.dto.user.UserResponse;
 import com.omerfbuber.extension.ResponseEntityExtension;
-import com.omerfbuber.service.shared.CustomUserDetails;
+import com.omerfbuber.service.user.CustomUserDetails;
 import com.omerfbuber.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
