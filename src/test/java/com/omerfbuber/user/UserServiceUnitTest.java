@@ -306,11 +306,13 @@ public class UserServiceUnitTest {
         // Arrange
         String email = "test@example.com";
         String newPassword = "newPassword";
+        String hashedPassword = "hashedNewPassword";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", newPassword, newPassword);
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
-        when(userRepository.updateUserPassword(email, newPassword)).thenReturn(1);
+        when(userRepository.updateUserPassword(email, hashedPassword)).thenReturn(1);
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
+        when(passwordHasher.hash(request.newPassword())).thenReturn(hashedPassword);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -318,7 +320,7 @@ public class UserServiceUnitTest {
         // Assert
         assertTrue(result.isSuccess());
         verify(userRepository, times(1)).findByEmail(email);
-        verify(userRepository, times(1)).updateUserPassword(email, newPassword);
+        verify(userRepository, times(1)).updateUserPassword(email, hashedPassword);
     }
 
     @Test
@@ -326,11 +328,13 @@ public class UserServiceUnitTest {
         // Arrange
         String email = "test@example.com";
         String newPassword = "newPassword";
+        String hashedPassword = "hashedNewPassword";
         ChangePasswordRequest request = new ChangePasswordRequest(email, "correctPassword", newPassword, newPassword);
         User existingUser = new User(1L, email, "correctPassword", "John", "Doe", LocalDateTime.now());
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(existingUser));
-        when(userRepository.updateUserPassword(email, newPassword)).thenReturn(0);
+        when(userRepository.updateUserPassword(email, hashedPassword)).thenReturn(0);
         when(passwordHasher.verify(request.password(), existingUser.getPassword())).thenReturn(true);
+        when(passwordHasher.hash(request.newPassword())).thenReturn(hashedPassword);
 
         // Act
         Result<Void> result = userService.changePassword(request);
@@ -340,7 +344,7 @@ public class UserServiceUnitTest {
         assertEquals("Server.UpdateError", result.getError().code());
         assertEquals("An error occurred while updating the password", result.getError().description());
         verify(userRepository, times(1)).findByEmail(email);
-        verify(userRepository, times(1)).updateUserPassword(email, newPassword);
+        verify(userRepository, times(1)).updateUserPassword(email, passwordHasher.hash(request.newPassword()));
     }
 
     @Test
