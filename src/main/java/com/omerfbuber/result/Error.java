@@ -9,6 +9,8 @@ public record Error(String code, String description, @JsonIgnore ErrorType type)
     public static Error NONE = new Error("", "", ErrorType.FAILURE);
     public static Error NULL_VALUE = new Error(
             "General.Null", "Null value was provided.", ErrorType.FAILURE);
+    public static Error TOO_MANY_REQUESTS = new Error(
+            "General.TooManyRequests", "Too many requests.", ErrorType.TOO_MANY_REQUESTS);
 
     public static Error failure(String code, String description) {
         return new Error(code, description, ErrorType.FAILURE);
@@ -36,5 +38,14 @@ public record Error(String code, String description, @JsonIgnore ErrorType type)
 
     public static Error forbidden(String code, String description) {
         return new Error(code, description, ErrorType.FORBIDDEN);
+    }
+
+    public static Error tooManyRequests(String code, String description) {
+        return new Error(code, description, ErrorType.TOO_MANY_REQUESTS);
+    }
+
+    public static Error tooManyRequests(long requestPerMinute) {
+        return new Error("Too many requests.",
+                "You only allow " + requestPerMinute + " requests per minute.", ErrorType.TOO_MANY_REQUESTS);
     }
 }
