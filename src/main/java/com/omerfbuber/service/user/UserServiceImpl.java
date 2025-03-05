@@ -152,8 +152,7 @@ public class UserServiceImpl implements UserService {
             return Result.failure(Error.problem("PasswordMismatch", "Passwords do not match"));
         }
 
-        entity.setPassword(passwordHasher.hash(request.newPassword()));
-        var result = userRepository.updateUserPassword(request.email(), request.newPassword());
+        var result = userRepository.updateUserPassword(request.email(), passwordHasher.hash(request.newPassword()));
 
         if (result > 0) {
             log.info("Password changed successfully for email: {}", request.email());
