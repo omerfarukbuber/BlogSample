@@ -1,6 +1,6 @@
 package com.omerfbuber.filter;
 
-import com.omerfbuber.service.shared.CustomUserDetailsService;
+import com.omerfbuber.service.user.CustomUserDetailsService;
 import com.omerfbuber.util.TokenProvider;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.*;
