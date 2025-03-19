@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "permissions", indexes = {@Index(name = "idx_permission_name", columnList = "name")})
+@Table(name = "permissions", schema = "users", indexes = {@Index(name = "idx_permission_name", columnList = "name")})
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

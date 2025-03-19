@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "roles", indexes = {@Index(name = "idx_role_name", columnList = "name")})
+@Table(name = "roles", schema = "users", indexes = {@Index(name = "idx_role_name", columnList = "name")})
 public class Role {
 
     @Id
