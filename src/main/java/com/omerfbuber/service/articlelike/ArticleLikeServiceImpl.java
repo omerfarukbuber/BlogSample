@@ -1,8 +1,8 @@
 package com.omerfbuber.service.articlelike;
 
-import com.omerfbuber.dto.articlelike.DislikeRequest;
 import com.omerfbuber.dto.articlelike.LikeRequest;
 import com.omerfbuber.dto.articlelike.LikeResponse;
+import com.omerfbuber.dto.articlelike.UnlikeRequest;
 import com.omerfbuber.entity.Article;
 import com.omerfbuber.entity.ArticleLike;
 import com.omerfbuber.entity.User;
@@ -59,7 +59,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     }
 
     @Override
-    public Result<LikeResponse> dislikeArticle(DislikeRequest request) {
+    public Result<LikeResponse> unlikeArticle(UnlikeRequest request) {
 
         User user = customUserDetailsService.getAuthenticatedUser();
         if (user == null) {
