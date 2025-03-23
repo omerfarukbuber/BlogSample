@@ -1,6 +1,8 @@
 package com.omerfbuber.service.user;
 
+import com.omerfbuber.entity.User;
 import com.omerfbuber.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,4 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .anyMatch(authority -> authority.getAuthority().equals(permission));
     }
 
+    public User getAuthenticatedUser() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+
+        String email = authentication.getName();
+        return userRepository.findByEmail(email).orElse(null);
+    }
 }

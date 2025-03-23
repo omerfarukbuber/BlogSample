@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "refresh_tokens",
+@Table(name = "refresh_tokens", schema = "users",
         indexes = {@Index(name = "idx_refresh_token_user_id", columnList = "user_id"),
                     @Index(name = "idx_refresh_token_token", columnList = "token")})
 public class RefreshToken {
