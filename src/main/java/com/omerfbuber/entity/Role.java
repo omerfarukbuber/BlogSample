@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "roles", indexes = {@Index(name = "idx_role_name", columnList = "name")})
+@Table(name = "roles", schema = "users", indexes = {@Index(name = "idx_role_name", columnList = "name")})
 public class Role {
 
     @Id
@@ -25,6 +25,7 @@ public class Role {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_permissions",
+        schema = "users",
         joinColumns = @JoinColumn(name = "role_id"),
         inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<Permission> permissions = new HashSet<>();

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("is_deleted = false")
-@Table(name = "users", indexes = {@Index(name = "idx_users_email", columnList = "email")})
+@Table(name = "users", schema = "users", indexes = {@Index(name = "idx_users_email", columnList = "email")})
 public class User extends BaseEntity {
 
     @Id
@@ -42,6 +42,10 @@ public class User extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Setter
+    @Column(name = "is_deleted")
+    private boolean isDeleted = false;
 
     public User(Long id, String email, String password, String firstName, String lastName, LocalDateTime birthDate) {
         this.id = id;
