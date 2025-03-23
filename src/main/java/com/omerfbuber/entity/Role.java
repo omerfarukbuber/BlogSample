@@ -25,6 +25,7 @@ public class Role {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_permissions",
+        schema = "users",
         joinColumns = @JoinColumn(name = "role_id"),
         inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<Permission> permissions = new HashSet<>();
